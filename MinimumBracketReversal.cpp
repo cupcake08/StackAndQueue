@@ -1,47 +1,16 @@
-//for complete problem refer to coding ninjas platform
-
 #include <stack>
 int countBracketReversals(string input) {
-	if(input.length()%2!=0)
-  {
-    return -1;
-  }
-  stack<char> s;
-  for(int i=0;i<input.length();i++)
-  {
-    if(input[i]=='{')
-    {
-      s.push(input[i]);
-    }
-    else if(input[i]=='}')
-    {
-      if(s.empty())
-      {
-        s.push(input[i]);
-      }else if(s.top()=='{')
-      {
+    int n = input.length();
+    if(n&1) return -1;
+    stack<int> s;
+    for(auto &x:input) x == '{' ? s.push(x) : ((!s.empty() && s.top() == '{') ? s.pop() : s.push(x));
+    int cnt=0;
+    while(!s.empty()){
+        int c1 = s.top();
         s.pop();
-      }else
-      {
-        s.push(input[i]);
-      }
+        int c2 = s.top();
+        s.pop();
+        (c1 == c2) ? cnt++ : cnt+=2;
     }
-
-  }
-  int count=0;
-  while(!s.empty())
-  {
-    char c1=s.top();
-    s.pop();
-    char c2=s.top();
-    s.pop();
-    if(c1==c2)
-    {
-      count++;
-    }else
-    {
-      count+=2;
-    }
-  }
-  return count;
+    return cnt;
 }
