@@ -52,6 +52,7 @@ public:
     }
     int temp=head->data;
     head=head->next;
+    size--;
     return temp;
   }
   int top()
